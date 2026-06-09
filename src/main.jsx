@@ -6,6 +6,7 @@ const navLinks = ['About', 'Skills', 'Experience', 'Projects', 'Education', 'Con
 
 const skills = [
   { title: 'Languages', value: 'Python, SQL' },
+  { title: 'Frameworks', value: 'Flask, Django, React, Next.js' },
   { title: 'Big Data / Streaming', value: 'Apache Spark, Hadoop, Hive' },
   { title: 'Cloud Platforms', value: 'AWS Redshift, GCP' },
   { title: 'Database / Storage', value: 'PostgreSQL, MongoDB, Cassandra, Snowflake' },
