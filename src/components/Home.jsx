@@ -61,7 +61,7 @@ const Home = () => {
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden bg-black">
-      <BackgroundBeams className="opacity-50" />
+      <BackgroundBeams />
 
       <div className="pointer-events-none absolute inset-0">
         <div
