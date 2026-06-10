@@ -1,5 +1,5 @@
 {
-  "name": "kanimozhi-react-portfolio",
+  "name": "kanimozhi-portfolio",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -9,10 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.0.0",
+    "gsap": "^3.14.2",
+    "lucide-react": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "tailwind-merge": "^3.0.0",
+    "typed.js": "^2.1.0",
+    "vite": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  }
 }
