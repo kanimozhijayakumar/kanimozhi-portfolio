@@ -41,7 +41,7 @@ const Home = () => {
     })
     nameRef.current.appendChild(div)
     gsap.set(allChars, { y: 40 })
-    gsap.to(allChars, { opacity: 1, y: 0, duration: 0.4, stagger: 0.03, ease: 'power3.out', delay: 2.2 })
+    gsap.to(allChars, { opacity: 1, y: 0, duration: 0.4, stagger: 0.03, ease: 'power3.out', delay: 0.3 })
   }, [])
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Home = () => {
       backSpeed: 30,
       backDelay: 2000,
       loop: true,
-      startDelay: 2800,
+      startDelay: 800,
     })
     return () => typed.destroy()
   }, [])
@@ -66,7 +66,7 @@ const Home = () => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm tracking-[0.2em] uppercase mb-3 text-white/35"
           >
             Hello, I'm
@@ -79,7 +79,7 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 2.6 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
             className="flex items-center gap-3 mb-6"
           >
             <div className="h-px w-8 bg-blue-400" />
@@ -92,7 +92,7 @@ const Home = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 2.8 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
             className="text-sm leading-relaxed max-w-lg mb-8 text-center text-white/40"
           >
             Aspiring Data Engineer skilled in building ETL pipelines, scalable data workflows, analytical data models, and business-ready dashboards using Python, SQL, Spark, and cloud platforms.
@@ -101,7 +101,7 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 3.4 }}
+            transition={{ duration: 0.5, delay: 1.0 }}
             className="flex gap-3"
           >
             {socialLinks.map(({ icon: Icon, href }, i) => (
@@ -112,7 +112,7 @@ const Home = () => {
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 3.5 + i * 0.1 }}
+                transition={{ duration: 0.3, delay: 1.1 + i * 0.1 }}
                 whileHover={{ y: -3 }}
                 className="w-10 h-10 rounded-lg flex items-center justify-center border border-white/10 text-white/40 hover:border-blue-400 hover:text-blue-400 transition-all duration-300"
               >

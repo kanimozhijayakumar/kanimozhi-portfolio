@@ -1,9 +1,6 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { AnimatePresence } from 'framer-motion'
-
-import Preloader from './components/Preloader'
 import SmoothScroll from './components/SmoothScroll'
 import ScrollProgress from './components/ScrollProgress'
 import Navigation from './components/Navigation'
@@ -19,7 +16,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   const [isMobile, setIsMobile] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
   const spotRef = useRef(null)
 
   useEffect(() => {
@@ -42,8 +38,6 @@ function App() {
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
   }, [])
-
-  const handlePreloaderComplete = useCallback(() => setIsLoading(false), [])
 
   // per-section spotlight opacity (on the wrapper div)
   const sectionOpacity = {
@@ -89,10 +83,6 @@ function App() {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-      </AnimatePresence>
-
       {/* global mouse spotlight */}
       <div
         ref={spotRef}
