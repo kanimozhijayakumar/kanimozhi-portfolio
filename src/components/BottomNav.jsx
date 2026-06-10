@@ -36,12 +36,17 @@ const BottomNav = () => {
   useEffect(() => {
     const sections = Object.keys(sectionToTab)
     const handleScroll = () => {
-      let current = 'home'
+      const vh = window.innerHeight
+      let best = 'home'
+      let bestPx = 0
       for (const id of sections) {
         const el = document.getElementById(id)
-        if (el && el.getBoundingClientRect().top <= 80) current = id
+        if (!el) continue
+        const { top, bottom } = el.getBoundingClientRect()
+        const visible = Math.max(0, Math.min(bottom, vh) - Math.max(top, 0))
+        if (visible > bestPx) { bestPx = visible; best = id }
       }
-      setActive(sectionToTab[current])
+      setActive(sectionToTab[best])
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()

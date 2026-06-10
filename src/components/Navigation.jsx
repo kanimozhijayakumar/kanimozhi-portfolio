@@ -28,11 +28,15 @@ const Navigation = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
 
-      // find the section whose top is closest to (but not past) 80px from top
+      const vh = window.innerHeight
       let current = 'home'
+      let bestPx = 0
       for (const item of navItems) {
         const el = document.getElementById(item.id)
-        if (el && el.getBoundingClientRect().top <= 80) current = item.id
+        if (!el) continue
+        const { top, bottom } = el.getBoundingClientRect()
+        const visible = Math.max(0, Math.min(bottom, vh) - Math.max(top, 0))
+        if (visible > bestPx) { bestPx = visible; current = item.id }
       }
       setActiveSection(current)
     }
