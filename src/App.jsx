@@ -62,15 +62,15 @@ function App() {
         {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
 
-      {/* global mouse spotlight */}
+      {/* global mouse spotlight — sits above all sections via mix-blend-mode */}
       <div
         ref={spotRef}
-        className="fixed inset-0 z-0 pointer-events-none"
-        style={{ '--sx': '50vw', '--sy': '40vh' }}
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 30, '--sx': '50vw', '--sy': '40vh', mixBlendMode: 'screen' }}
       >
         <div
           className="absolute inset-0"
-          style={{ background: 'radial-gradient(600px circle at var(--sx) var(--sy), rgba(96,165,250,0.07), transparent 70%)' }}
+          style={{ background: 'radial-gradient(650px circle at var(--sx) var(--sy), rgba(96,165,250,0.12), transparent 70%)' }}
         />
       </div>
 
