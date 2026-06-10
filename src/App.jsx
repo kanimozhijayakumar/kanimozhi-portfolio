@@ -45,15 +45,46 @@ function App() {
 
   const handlePreloaderComplete = useCallback(() => setIsLoading(false), [])
 
+  // per-section spotlight opacity (on the wrapper div)
+  const sectionOpacity = {
+    home:       0.7,
+    about:      0.45,
+    skills:     0.45,
+    experience: 0.35,
+    projects:   0.45,
+    contact:    0.35,
+  }
+
   useEffect(() => {
     const el = spotRef.current
     if (!el) return
+
+    // track mouse position
     const onMove = e => {
       el.style.setProperty('--sx', `${e.clientX}px`)
       el.style.setProperty('--sy', `${e.clientY}px`)
     }
     window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
+
+    // observe sections and smoothly adjust opacity
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id
+          el.style.opacity = sectionOpacity[id] ?? 0.45
+        }
+      })
+    }, { threshold: 0.3 })
+
+    Object.keys(sectionOpacity).forEach(id => {
+      const section = document.getElementById(id)
+      if (section) observer.observe(section)
+    })
+
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      observer.disconnect()
+    }
   }, [])
 
   return (
@@ -62,15 +93,15 @@ function App() {
         {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
 
-      {/* global mouse spotlight — sits above all sections via mix-blend-mode */}
+      {/* global mouse spotlight */}
       <div
         ref={spotRef}
         className="fixed inset-0 pointer-events-none"
-        style={{ zIndex: 30, '--sx': '50vw', '--sy': '40vh', mixBlendMode: 'screen' }}
+        style={{ zIndex: 30, '--sx': '50vw', '--sy': '40vh', opacity: 0.7, transition: 'opacity 1.2s ease', mixBlendMode: 'screen' }}
       >
         <div
           className="absolute inset-0"
-          style={{ background: 'radial-gradient(650px circle at var(--sx) var(--sy), rgba(96,165,250,0.12), transparent 70%)' }}
+          style={{ background: 'radial-gradient(650px circle at var(--sx) var(--sy), rgba(96,165,250,0.11), transparent 70%)' }}
         />
       </div>
 
