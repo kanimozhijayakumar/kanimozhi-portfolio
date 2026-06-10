@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { AnimatePresence } from 'framer-motion'
@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger)
 function App() {
   const [isMobile, setIsMobile] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const spotRef = useRef(null)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -44,11 +45,34 @@ function App() {
 
   const handlePreloaderComplete = useCallback(() => setIsLoading(false), [])
 
+  useEffect(() => {
+    const el = spotRef.current
+    if (!el) return
+    const onMove = e => {
+      el.style.setProperty('--sx', `${e.clientX}px`)
+      el.style.setProperty('--sy', `${e.clientY}px`)
+    }
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
+  }, [])
+
   return (
     <>
       <AnimatePresence mode="wait">
         {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
+
+      {/* global mouse spotlight */}
+      <div
+        ref={spotRef}
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{ '--sx': '50vw', '--sy': '40vh' }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(600px circle at var(--sx) var(--sy), rgba(96,165,250,0.07), transparent 70%)' }}
+        />
+      </div>
 
       <SmoothScroll>
         <div className="min-h-screen bg-black text-white overflow-x-hidden">
