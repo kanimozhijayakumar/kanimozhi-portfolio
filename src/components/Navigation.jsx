@@ -2,32 +2,45 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const navItems = [
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
+  { id: 'home',       label: 'Home' },
+  { id: 'about',      label: 'About' },
+  { id: 'skills',     label: 'Skills' },
   { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'projects',   label: 'Projects' },
+  { id: 'contact',    label: 'Contact' },
 ]
+
+const scrollTo = id => {
+  if (id === 'home') {
+    window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else {
+    const el = document.getElementById(id)
+    if (!el) return
+    window.__lenis ? window.__lenis.scrollTo(el, { offset: -64 }) : el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('')
+  const [activeSection, setActiveSection] = useState('home')
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
-      let current = ''
+
+      // find the section whose top is closest to (but not past) 80px from top
+      let current = 'home'
       for (const item of navItems) {
         const el = document.getElementById(item.id)
-        if (el && el.getBoundingClientRect().top <= 120) current = item.id
+        if (el && el.getBoundingClientRect().top <= 80) current = item.id
       }
       setActiveSection(current)
     }
-    window.addEventListener('scroll', handleScroll)
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const scrollTo = id => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <motion.nav

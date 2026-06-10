@@ -18,7 +18,7 @@ const LinkedinIcon = ({ size = 15 }) => (
 const socialLinks = [
   { icon: GithubIcon, href: 'https://github.com/kanimozhijayakumar' },
   { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/kanimozhi-jayakumar-021b28314/' },
-  { icon: Mail, href: 'mailto:kanimozhijayakumar26@gmail.com' },
+  { icon: Mail, href: 'mailto:kanimozhijayakumar2612@gmail.com' },
 ]
 
 const Home = () => {

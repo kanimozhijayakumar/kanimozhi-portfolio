@@ -1,47 +1,52 @@
 import { motion } from 'framer-motion'
-import { Home, User, Folder, Mail } from 'lucide-react'
+import { Home, User, Briefcase, Folder, Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const tabs = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'about', label: 'About', icon: User },
-  { id: 'projects', label: 'Projects', icon: Folder },
-  { id: 'contact', label: 'Contact', icon: Mail },
+  { id: 'home',       label: 'Home',       icon: Home },
+  { id: 'about',      label: 'About',      icon: User },
+  { id: 'experience', label: 'Experience', icon: Briefcase },
+  { id: 'projects',   label: 'Projects',   icon: Folder },
+  { id: 'contact',    label: 'Contact',    icon: Mail },
 ]
+
+// which tab lights up for each section
+const sectionToTab = {
+  home:       'home',
+  about:      'about',
+  skills:     'about',
+  experience: 'experience',
+  projects:   'projects',
+  contact:    'contact',
+}
+
+const scrollTo = id => {
+  if (id === 'home') {
+    window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else {
+    const el = document.getElementById(id)
+    if (!el) return
+    window.__lenis ? window.__lenis.scrollTo(el, { offset: 0 }) : el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 const BottomNav = () => {
   const [active, setActive] = useState('home')
 
   useEffect(() => {
-    const sections = [
-      { id: 'home', tab: 'home' },
-      { id: 'about', tab: 'about' },
-      { id: 'skills', tab: 'about' },
-      { id: 'experience', tab: 'about' },
-      { id: 'projects', tab: 'projects' },
-      { id: 'contact', tab: 'contact' },
-    ]
+    const sections = Object.keys(sectionToTab)
     const handleScroll = () => {
-      for (const section of sections) {
-        const el = document.getElementById(section.id)
-        if (!el) continue
-        const rect = el.getBoundingClientRect()
-        if (rect.top <= 120 && rect.bottom >= 120) {
-          setActive(section.tab)
-          break
-        }
+      let current = 'home'
+      for (const id of sections) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= 80) current = id
       }
+      setActive(sectionToTab[current])
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const scrollTo = tab => {
-    setActive(tab)
-    if (tab === 'home') window.scrollTo({ top: 0, behavior: 'smooth' })
-    else document.getElementById(tab)?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <motion.nav
@@ -50,7 +55,7 @@ const BottomNav = () => {
       transition={{ type: 'spring', stiffness: 280, damping: 26 }}
       className="fixed bottom-0 inset-x-0 z-50 md:hidden"
     >
-      <div className="bg-black border-t border-white/[0.08] backdrop-blur-xl pb-safe">
+      <div className="bg-black/95 border-t border-white/[0.08] backdrop-blur-xl pb-safe">
         <div className="flex h-14">
           {tabs.map(({ id, label, icon: Icon }) => {
             const isActive = active === id

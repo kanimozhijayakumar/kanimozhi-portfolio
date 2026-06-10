@@ -15,14 +15,14 @@ const LinkedinIcon = ({ size = 15 }) => (
 )
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'kanimozhijayakumar26@gmail.com', href: 'mailto:kanimozhijayakumar26@gmail.com' },
+  { icon: Mail, label: 'Email', value: 'kanimozhijayakumar2612@gmail.com', href: 'mailto:kanimozhijayakumar2612@gmail.com' },
   { icon: MapPin, label: 'Location', value: 'Chennai, India', href: 'https://maps.google.com/?q=Chennai,India' },
 ]
 
 const socials = [
   { icon: GithubIcon, href: 'https://github.com/kanimozhijayakumar' },
   { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/kanimozhi-jayakumar-021b28314/' },
-  { icon: Mail, href: 'mailto:kanimozhijayakumar26@gmail.com' },
+  { icon: Mail, href: 'mailto:kanimozhijayakumar2612@gmail.com' },
 ]
 
 const Contact = () => (

@@ -19,12 +19,14 @@ const SmoothScroll = ({ children }) => {
     })
 
     lenisRef.current = lenis
+    window.__lenis = lenis
     lenis.on('scroll', ScrollTrigger.update)
     gsap.ticker.add(time => lenis.raf(time * 1000))
     gsap.ticker.lagSmoothing(0)
 
     return () => {
       lenis.destroy()
+      window.__lenis = null
     }
   }, [])
 
